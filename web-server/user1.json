@@ -14,22 +14,5 @@
     "socks" : "blue",
     "shoes" : "blue"
   },
-  "challenges": {
-    "0": {
-      "location": {
-        "latitude": 1.23,
-        "longitude": 4.56,
-        "timestamp": 123456789
-      },
-      "appearance": {
-        "gender": "female",
-        "skin" : "asian",
-        "hair": "black",
-        "shirt": "red",
-        "shorts": "white",
-        "socks": "blue",
-        "shoes": "white"
-      }
-    }
-  }
+  "challenger": "40cea990-771e-11e8-b86e-fd46340bc93a"
 }

@@ -20,18 +20,18 @@ var jsonUser1 = JSON.parse(user1);
 database[jsonUser1.id] = jsonUser1;
 
 app.get('/', (req, res) => {
-  res.status(200).send("Here Comes A New Challenger");
+  res.status(200).send("Here Comes A New Challenger\n");
 });
 
 app.get('/user/:id', (req, res) => {
   console.log('GET /user/', req.params.id);
-  // Search database
-  var user = {};
-  if (database[req.params.id] !== undefined) {
-    user = database[req.params.id];
-  } else {
-    res.status(404).send("User does not exist");
+
+  var user = retrieveUser(req.params.id);
+  if (user === undefined) {
+    res.status(404).send("User does not exist\n");
+    return;
   }
+
   res.send(user);
 });
 
@@ -39,12 +39,10 @@ app.put('/user/:id', (req, res) => {
   console.log('PUT /user/', req.params.id);
   console.log(req.body);
 
-  // Try retrieving user from database
-  var user = {};
-  if (database[req.params.id] !== undefined) {
-    user = database[req.params.id];
-  } else {
-    res.status(404).send("User does not exist");
+  var user = retrieveUser(req.params.id);
+  if (user === undefined) {
+    res.status(404).send("User does not exist\n");
+    return;
   }
 
   // Update fields
@@ -88,37 +86,95 @@ app.put('/user/:id', (req, res) => {
   // Update timestamp before saving
   user.location.timestamp = Date.now();
   database[user.id] = user;
-
   res.status(200).send(user);
 });
 
+// Create a new user
 app.post('/user', (req, res) => {
-  if (req.method === 'POST') {
-    // Allocate new uuid
-    var uuid = uuidv1();
-    // Create new blank user
-    var user = {};
-    user.id = uuid;
-    user.location = {};
-    user.appearance = {};
-    user.challenges = {};
-    // Save new user in database
-    database[uuid] = user;
-    console.log('New user: ', uuid);
-    res.status(200).send(user);
-  }
+  // Allocate new uuid
+  var uuid = uuidv1();
+  // Create new blank user
+  var user = {};
+  user.id = uuid;
+  user.location = {};
+  user.appearance = {};
+  user.challenges = {};
+  // Save new user in database
+  database[uuid] = user;
+  console.log('New user: ', uuid);
+  res.status(200).send(user);
 });
 
-app.get('/user/:id/challenges', (req, res) => {
-  // Search for user in database
-  var user = {};
-  if (database[req.params.id] !== undefined) {
-    user = database[req.params.id];
-  } else {
-    res.status(404).send("User does not exist");
+// Get challenger information
+app.get('/user/:id/challenger', (req, res) => {
+  var user = retrieveUser(req.params.id);
+  if (user === undefined) {
+    res.status(404).send("User does not exist\n");
+    return;
   }
-  res.status(200).send(user.challenges);
+  
+  var challenger = {};
+  if (user.challenger !== undefined) {
+    challenger = retrieveUser(user.challenger);
+    if (challenger !== undefined) {
+      var obj = {};
+      obj.location = challenger.location;
+      obj.appearance = challenger.appearance;
+      res.status(200).send(obj);
+      return;
+    }
+  }
+  
+  res.status(404).send("No challenger found for this user\n");
 });
+
+app.get('/user/:id/find', (req, res) => {
+  var user = retrieveUser(req.params.id);
+  if (user === undefined) {
+    res.status(404).send("User does not exist\n");
+    return;
+  }
+
+  var u = {};
+  var nearest;
+  var distance;
+  var min_distance;
+  for (key in database) {
+    u = database[key];
+    if (u.id != req.params.id) {
+      distance = calculateDistance(user.location.latitude, user.location.longitude, u.location.latitude, u.location.longitude);
+      console.log(u.id, distance);
+      if (distance < min_distance) {
+        min_distance = distance;
+        nearest = u;
+      }
+    }
+  }
+
+  if (nearest !== undefined) {
+    user.challenger = nearest.id;
+    database[user.id] = user;
+    console.log("Challenger: ", user.challenger.id);
+    res.status(200).send("Challenger found\n");
+    return;
+  }
+  
+  res.status(404).send("No challengers nearby\n");
+});
+
+function retrieveUser(id) {
+  if (database[id] !== undefined) {
+    return database[id];
+  }
+  return undefined;
+}
+
+function calculateDistance(latitude, longitude, other_latitude, other_longitude) {
+  abs_latitude = Math.abs(latitude, other_latitude);
+  abs_longitude = Math.abs(longitude, other_longitude);
+  squared_distance = Math.pow(abs_latitude, 2) + Math.pow(abs_longitude, 2);
+  return Math.sqrt(squared_distance);
+}
 
 app.listen(port, hostname, () => {
   console.log('Server running at ', hostname, ':', port);
