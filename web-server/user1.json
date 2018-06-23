@@ -1,0 +1,35 @@
+{
+  "id": "00112233-4455-6677-8899-aabbccddeeff",
+  "location": {
+    "latitude" : 1.23,
+    "longitude": 4.56,
+    "timestamp": 123456789
+  },
+  "appearance": {
+    "gender": "male",
+    "skin"  : "white",
+    "hair"  : "black",
+    "shirt" : "red",
+    "shorts": "white",
+    "socks" : "blue",
+    "shoes" : "blue"
+  },
+  "challenges": {
+    "0": {
+      "location": {
+        "latitude": 1.23,
+        "longitude": 4.56,
+        "timestamp": 123456789
+      },
+      "appearance": {
+        "gender": "female",
+        "skin" : "asian",
+        "hair": "black",
+        "shirt": "red",
+        "shorts": "white",
+        "socks": "blue",
+        "shoes": "white"
+      }
+    }
+  }
+}
