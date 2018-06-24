@@ -108,6 +108,7 @@ app.post('/user', (req, res) => {
 
 // Get challenger information
 app.get('/user/:id/challenger', (req, res) => {
+  console.log("GET /user/", req.params.id, "/challenger");
   var user = retrieveUser(req.params.id);
   if (user === undefined) {
     res.status(404).send("User does not exist\n");
@@ -117,7 +118,11 @@ app.get('/user/:id/challenger', (req, res) => {
   // If no challenger active, find a challenger
   var found = false;
   var challenger = {};
-  if (user.challenger.id === undefined) found = findChallenger(user.id);
+  if (user.challenger.id === undefined) {
+    found = findChallenger(user.id);
+  } else {
+    found = true;
+  }
 
   if (found === false) {
     res.status(404).send("No challenger found for this user\n");
@@ -130,6 +135,7 @@ app.get('/user/:id/challenger', (req, res) => {
       obj.location = challenger.location;
       obj.appearance = challenger.appearance;
       obj.finish = user.challenger.finish;
+      console.log(obj);
       res.status(200).send(obj);
       return;
     }
@@ -181,6 +187,7 @@ function isFinished(user, challenger) {
 }
 
 function findChallenger(id) {
+  console.log("Finding a challenger...");
   var user = retrieveUser(id);
   if (user === undefined || user.location.latitude === undefined || user.location.longitude === undefined) {
     return false;
@@ -188,8 +195,8 @@ function findChallenger(id) {
 
   var u = {};
   var nearest;
-  var distance;
-  var min_distance;
+  var distance = 0;
+  var min_distance = 99999;
   for (key in database) {
     u = database[key];
     if (u.id != id) {
@@ -208,6 +215,7 @@ function findChallenger(id) {
     user.challenger.finish = finish;
     database[user.id] = user;
     console.log("Challenger: ", user.challenger.id);
+    console.log(database[user.id]);
     return true;
   }
 
