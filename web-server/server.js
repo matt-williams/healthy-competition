@@ -138,6 +138,19 @@ app.get('/user/:id/challenger', (req, res) => {
   res.status(404).send("No challenger found for this user\n");
 });
 
+app.delete('/user/:id/challenger', (req, res) => {
+  var user = retrieveUser(req.params.id);
+  if (user === undefined) {
+    res.status(404).send("User does not exist\n");
+    return;
+  }
+
+  user.challenger = {};
+  database[user.id] = user;
+
+  res.status(200).send("Challenger deleted\n");
+});
+
 function isFinished(user, challenger) {
   var finish = user.challenger.finish;
   var other_finish = challenger.challenger.finish;
