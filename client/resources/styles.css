@@ -1,0 +1,72 @@
+.background {
+  viewport-fill: darkgreen;
+}
+
+#spinner {
+  x: 50%-25;
+  y: 50%-25;
+  width: 50;
+  height: 50;
+  fill: fb-white;
+}
+
+#spinner_text {
+  fill: orange;
+  font-size: 16;
+  font-family: Colfax-Medium;
+  text-anchor: middle;
+  x: 174;
+  y: 190;
+}
+
+
+#you_text {
+  fill: orange;
+  font-size: 32;
+  font-family: Colfax-Bold;
+  font-weight: bold;
+  text-anchor: middle;
+}
+
+#challenger_text {
+  fill: orange;
+  font-size: 32;
+  font-family: Colfax-Bold;
+  font-weight: bold;
+  text-anchor: middle;
+}
+
+.arrow {
+  fill: orange;
+}
+
+#distance_text {
+  fill: orange;
+  font-size: 32;
+  font-family: Colfax-Medium;
+  text-anchor: middle;
+}
+
+#you_speed_text {
+  fill: orange;
+  font-size: 24;
+  font-family: Colfax-Medium;
+  text-anchor: middle;  
+}
+
+#challenger_speed_text {
+  fill: orange;
+  font-size: 24;
+  font-family: Colfax-Medium;
+  text-anchor: middle;
+}
+
+#result_text {
+  fill: red;
+  font-size: 48;
+  font-family: Colfax-Bold;
+  font-weight: bold;
+  text-anchor: middle;
+  x: 174;
+  y: 50%;
+}

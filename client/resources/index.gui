@@ -1,0 +1,56 @@
+<svg class="background">
+  <use id="container" href="#panoramaview">
+    <use id="item1" href="#panoramaview-item">
+      <g transform="translate(-50, 0)" id="you_container">
+        <animateTransform attributeType="translate" from="-50, 0" to="60, 0" begin="load" dur="0.5"/>
+        <animateTransform attributeType="translate" from="60, 0" to="-50, 0" begin="unload" dur="0.5"/>
+        <text id="you_text" x="0" y="40">You</text>
+  
+        <g transform="translate(0, 125)" id="you">
+          <g transform="scale(5)">
+            <use href="#runner-right"/>
+          </g>
+        </g>
+    
+        <text id="you_speed_text" x="0" y="230">9.2 km/h</text>
+      </g>
+      <g transform="translate(400, 0)" id="them_container">
+        <animateTransform attributeType="translate" from="400, 0" to="290, 0" begin="load" dur="0.5"/>
+        <animateTransform attributeType="translate" from="290, 0" to="400, 0" begin="unload" dur="0.5"/>
+        <text id="challenger_text" x="0" y="40">Them</text>
+  
+        <g transform="translate(0, 125)" id="challenger">
+          <g transform="scale(5)">
+            <use href="#runner-left"/>
+          </g>
+        </g>
+    
+        <text id="challenger_speed_text" x="0" y="230">- - - - -</text>
+      </g>
+      
+      <g transform="translate(174, 305)" id="arrow_container">
+        <animateTransform attributeType="translate" from="174, 305" to="174, 125" begin="load" dur="0.5"/>
+        <animateTransform attributeType="translate" from="174, 125" to="174, 305" begin="unload" dur="0.5"/>
+        <g transform="rotate(45)">
+          <use href="#arrow"/>
+        </g>
+        <text id="distance_text" y="100">300m</text>
+      </g>
+    </use>
+    <use id="item2" href="#panoramaview-item">
+      <image href="map.png" load="sync" />
+    </use>
+
+    <!-- Have enough pagination dots for your slides (extras are hidden) -->
+    <use id="pagination-dots" href="#pagination-widget" y="8">
+      <use href="#pagination-dot" />
+      <use href="#pagination-dot" />
+      <use href="#pagination-highlight-dot" />
+    </use>
+  </use>
+  <use id="spinner" href="#spinner" />
+  <text id="spinner_text">Unexecuted</text>
+
+  <text id="result_text">You win!</text>
+  
+</svg>

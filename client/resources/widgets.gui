@@ -1,0 +1,100 @@
+<svg>
+  <defs>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="import" href="/mnt/sysassets/widgets_common.gui" />
+    <link rel="import" href="/mnt/sysassets/widgets/spinner_widget.gui" />
+    <link rel="import" href="/mnt/sysassets/widgets/baseview_widget.gui" />
+    <link rel="import" href="/mnt/sysassets/widgets/panoramaview_widget.gui" />
+    <link rel="import" href="/mnt/sysassets/widgets/pagination_dots.gui" />
+  </defs>
+
+  <symbol id="head-left">
+    <rect x="-2" y="-4" width="4" height="8" class="skin"/>
+    <rect x= "-3" y= "0" width="2" height="2" class="skin"/>
+    <rect x="-4" y="-4" width="7" height="2" class="hair"/>
+    <rect x= "0" y="-2" width="4" height="4" class="hair"/>
+  </symbol>
+
+  <symbol id="head-right">
+    <rect x="-2" y="-4" width="4" height="8" class="skin"/>
+    <rect x= "1" y= "0" width="2" height="2" class="skin"/>
+    <rect x="-3" y="-4" width="7" height="2" class="hair"/>
+    <rect x="-4" y="-2" width="4" height="4" class="hair"/>
+  </symbol>
+ 
+  <symbol id="body">
+    <rect x="-4" y="-6" width="8" height="8" class="shirt"/>
+    <rect x="-2" y="-2" width="4" height="2" class="skin"/>
+    <rect x="-4" y= "2" width="8" height="4" class="shorts"/>
+  </symbol>
+  
+  <symbol id="leg-left">
+    <rect x="-2" y="-2" width="4" height="8" class="skin"/>
+    <rect x="-2" y= "4" width="4" height="4" class="socks"/>
+    <rect x="-4" y= "6" width="6" height="2" class="shoes"/>
+  </symbol>    
+
+  <symbol id="leg-right">
+    <rect x="-2" y="-2" width="4" height="8" class="skin"/>
+    <rect x="-2" y= "4" width="4" height="4" class="socks"/>
+    <rect x="-2" y= "6" width="6" height="2" class="shoes"/>
+  </symbol>    
+
+  <symbol id="runner-left">
+    <g transform="translate(0, 6)">
+      <animateTransform attributeType="rotate" easing="ease" from="-45" to="45" begin="load" dur="0.5" repeatCount="indefinite" />
+      <use href="#leg-left"/>
+    </g>
+
+    <g transform="translate(0, 6)">
+      <animateTransform attributeType="rotate" easing="ease" from="45" to="-45" begin="load" dur="0.5" repeatCount="indefinite" />
+      <use href="#leg-left"/>
+    </g>
+      
+    <g transform="translate(0, 0)">
+      <use href="#body"/>
+    </g>
+
+    <g transform="translate(0, -10)">
+      <use href="#head-left"/>
+    </g>    
+  </symbol>
+  
+  <symbol id="runner-right">
+    <g transform="translate(0, 6)">
+      <animateTransform attributeType="rotate" easing="ease" from="-45" to="45" begin="load" dur="0.5" repeatCount="indefinite" />
+      <use href="#leg-right"/>
+    </g>
+
+    <g transform="translate(0, 6)">
+      <animateTransform attributeType="rotate" easing="ease" from="45" to="-45" begin="load" dur="0.5" repeatCount="indefinite" />
+      <use href="#leg-right"/>
+    </g>
+      
+    <g transform="translate(0, 0)">
+      <use href="#body"/>
+    </g>
+
+    <g transform="translate(0, -10)">
+      <use href="#head-right"/>
+    </g>    
+  </symbol>
+  
+  <symbol id="arrow">
+    <g transform="scale(20)">
+      <g transform="rotate(45)">
+        <g transform="translate(-2, -2)">
+          <mask id="mask">
+            <g transform="rotate(45)">
+              <rect x="-2" y="-2" width="4" height="4" />
+            </g>
+          </mask>
+          <svg mask="#mask">
+            <rect x="0" y="0" width="4" height="4" class="arrow"/>
+          </svg>
+        </g>
+      </g>
+      <rect x="-1" y="-1" width="2" height="3" class="arrow"/>      
+    </g>
+  </symbol>
+</svg>
