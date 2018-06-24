@@ -1,11 +1,10 @@
 const fs = require('fs');
 const uuidv1 = require('uuid/v1');
 const express = require('express');
-const body = require('body');
 const bodyParser = require('body-parser');
 const jsonBody = require('body/json');
 
-const hostname = '127.0.0.1';
+const hostname = '0.0.0.0';
 const port = 3000;
 
 const app = express();
