@@ -160,12 +160,12 @@ app.delete('/user/:id/challenger', (req, res) => {
 function isFinished(user, challenger) {
   var finish = user.challenger.finish;
   var other_finish = challenger.challenger.finish;
-  if (user.location.latitide === finish.latitide && user.location.longitude === finish.longitude) {
+  if (user.location.latitide == finish.latitide && user.location.longitude == finish.longitude) {
     finish.over = true;
     finish.result = "win";
     other_finish.over = true;
     other_finish.result = "lose";
-  } else if (challenger.location.latitide === finish.latitude && challenger.location.longitude === finish.longitude) {
+  } else if (challenger.location.latitide == finish.latitude && challenger.location.longitude == finish.longitude) {
     finish.over = true;
     finish.result = "lose";
     other_finish.over = true;
@@ -237,8 +237,8 @@ function calculateDistance(latitude, longitude, other_latitude, other_longitude)
 
 function setFinishPoint(latitude, longitude, other_latitude, other_longitude) {
   var finish = {};
-  finish.latitude = 1.45;
-  finish.longitude = 2.43;
+  finish.latitude = 51.5239569;
+  finish.longitude = -0.0860552;
   return finish;
 }
 
