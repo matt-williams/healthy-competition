@@ -56,7 +56,7 @@ Gets the user with ID `<id>`, in the following form.
 }  
 ```
 
-`GET /user/<id>/challenges`
+`GET /user/<id>/challenger`
 
 Chooses a challenge.  If one is available, returns it, in the following form.  If none is available, returns 404.
 
@@ -77,7 +77,9 @@ Chooses a challenge.  If one is available, returns it, in the following form.  I
   },
   "finish": {
     "latitude": 2.34,
-    "longitude": 3.45
+    "longitude": 3.45,
+    "over": false,
+    "result": "winner"
   }
 }
 ```
