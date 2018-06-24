@@ -1,7 +1,7 @@
 {
   "name": "challenger",
   "version": "1.0.0",
-  "description": "",
+  "description": "Social competition app for Fitbit Ionic (TM) and Fitbit Versa (TM)",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,6 +9,11 @@
   },
   "author": "",
   "license": "ISC",
+  "repository" :
+  {
+    "type" : "git",
+    "url" : "https://github.com/matt-williams/healthy-competition.git"
+  },
   "dependencies": {
     "express": "^4.16.3",
     "uuid": "^3.2.1"
