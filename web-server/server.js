@@ -114,15 +114,18 @@ app.get('/user/:id/challenger', (req, res) => {
     return;
   }
   
+  // If no challenger active, find a challenger
   var found = false;
   var challenger = {};
   if (user.challenger.id === undefined) found = findChallenger(user.id);
+
   if (found === false) {
     res.status(404).send("No challenger found for this user\n");
     return;
   } else {
     challenger = retrieveUser(user.challenger.id);
-    if (challenger !== undefined) {
+    if (challenger !== undefined) { // Challenge is active
+      var finished = isFinished(user, challenger);
       var obj = {};
       obj.location = challenger.location;
       obj.appearance = challenger.appearance;
@@ -134,6 +137,35 @@ app.get('/user/:id/challenger', (req, res) => {
   
   res.status(404).send("No challenger found for this user\n");
 });
+
+function isFinished(user, challenger) {
+  var finish = user.challenger.finish;
+  var other_finish = challenger.challenger.finish;
+  if (user.location.latitide === finish.latitide && user.location.longitude === finish.longitude) {
+    finish.over = true;
+    finish.result = winner;
+    other_finish.over = true;
+    other_finish.result = loser;
+  }
+  if (challenger.location.latitide === finish.latitude && challenger.location.longitude === finish.longitude) {
+    finish.over = true;
+    finish.result = loser;
+    other_finish.over = true;
+    other_finish.result = winner;
+  }
+  
+  finish.over = false;
+  other_finish.over = false;
+
+  // Save results to database
+  var u = database[user.id];
+  u.challenger.finish = finish;
+  database[user.id] = u;
+
+  var v = database[challenger.id];
+  v.challenger.finish = other_finish;
+  database[challenger.id] = v;
+}
 
 function findChallenger(id) {
   var user = retrieveUser(id);
