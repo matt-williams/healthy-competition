@@ -23,6 +23,6 @@ curl -X PUT --data '{"id": "00112233-4455-6677-8899-aabbccddeefg","location": {"
 
 curl -X GET http://healthy-competition.uk.to/user/00112233-4455-6677-8899-aabbccddeefg/challenger
 
-curl -X PUT --data '{"id": "00112233-4455-6677-8899-aabbccddeefg","location": {"latitude": 5.77,"longitude": 4.77}, "appearance": {}}' -H "Content-Type:application/json" http://healthy-competition.uk.to/user/00112233-4455-6677-8899-aabbccddeefg
+curl -X PUT --data '{"id": "00112233-4455-6677-8899-aabbccddeefg","location": {"latitude": 1.45,"longitude": 2.43}, "appearance": {}}' -H "Content-Type:application/json" http://healthy-competition.uk.to/user/00112233-4455-6677-8899-aabbccddeefg
 
 curl -X GET http://healthy-competition.uk.to/user/00112233-4455-6677-8899-aabbccddeefg/challenger

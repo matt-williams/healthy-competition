@@ -165,16 +165,15 @@ function isFinished(user, challenger) {
     finish.result = "win";
     other_finish.over = true;
     other_finish.result = "lose";
-  }
-  if (challenger.location.latitide === finish.latitude && challenger.location.longitude === finish.longitude) {
+  } else if (challenger.location.latitide === finish.latitude && challenger.location.longitude === finish.longitude) {
     finish.over = true;
     finish.result = "lose";
     other_finish.over = true;
     other_finish.result = "win";
+  } else {
+    finish.over = false;
+    other_finish.over = false;
   }
-  
-  finish.over = false;
-  other_finish.over = false;
 
   // Save results to database
   var u = database[user.id];
