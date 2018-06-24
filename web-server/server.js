@@ -192,7 +192,7 @@ function findChallenger(id) {
   var min_distance;
   for (key in database) {
     u = database[key];
-    if (u.id != req.params.id) {
+    if (u.id != id) {
       distance = calculateDistance(user.location.latitude, user.location.longitude, u.location.latitude, u.location.longitude);
       console.log(u.id, distance);
       if (distance < min_distance) {
