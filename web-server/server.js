@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+// app.use(bodyParser.urlencoded({extended:true}));
 
 const database = {};
 
@@ -39,45 +39,48 @@ app.put('/user/:id', (req, res) => {
 
   var user = retrieveUser(req.params.id);
   if (user === undefined) {
-    res.status(404).send("User does not exist\n");
-    return;
+    user = {};
+    user.id = req.params.id;
+    user.location = {};
+    user.appearance = {};
+    user.challenger = {};
   }
 
   // Update fields
-  if (req.body.latitude !== undefined) {
-    user.location.latitude = req.body.latitude;
+  if (req.body.location.latitude !== undefined) {
+    user.location.latitude = req.body.location.latitude;
     console.log('New latitude: ', user.location.latitude);
   }
-  if (req.body.longitude !== undefined) {
-    user.location.longitude = req.body.longitude;
+  if (req.body.location.longitude !== undefined) {
+    user.location.longitude = req.body.location.longitude;
     console.log('New longitude: ', user.location.longitude);
   }
-  if (req.body.gender !== undefined) {
-    user.appearance.gender = req.body.gender;
+  if (req.body.appearance.gender !== undefined) {
+    user.appearance.gender = req.body.appearance.gender;
     console.log('New gender: ', user.appearance.gender);
   }
-  if (req.body.skin !== undefined) {
-    user.appearance.skin = req.body.skin;
+  if (req.body.appearance.skin !== undefined) {
+    user.appearance.skin = req.body.appearance.skin;
     console.log('New skin: ', user.appearance.skin);
   }
-  if (req.body.hair !== undefined) {
-    user.appearance.hair = req.body.hair;
+  if (req.body.appearance.hair !== undefined) {
+    user.appearance.hair = req.body.appearance.hair;
     console.log('New hair: ', user.appearance.hair);
   }
-  if (req.body.shirt !== undefined) {
-    user.appearance.shirt = req.body.shirt;
+  if (req.body.appearance.shirt !== undefined) {
+    user.appearance.shirt = req.body.appearance.shirt;
     console.log('New shirt: ', user.appearance.shirt);
   }
-  if (req.body.shorts !== undefined) {
-    user.appearance.shorts = req.body.shorts;
+  if (req.body.appearance.shorts !== undefined) {
+    user.appearance.shorts = req.body.appearance.shorts;
     console.log('New shorts: ', user.appearance.shorts);
   }
-  if (req.body.socks !== undefined) {
-    user.appearance.socks = req.body.socks;
+  if (req.body.appearance.socks !== undefined) {
+    user.appearance.socks = req.body.appearance.socks;
     console.log ('New socks: ', user.appearance.socks);
   }
-  if (req.body.shoes !== undefined) {
-    user.appearance.shoes = req.body.shoes;
+  if (req.body.appearance.shoes !== undefined) {
+    user.appearance.shoes = req.body.appearance.shoes;
     console.log('New shoes: ', user.appearance.shoes);
   }
 
@@ -96,7 +99,7 @@ app.post('/user', (req, res) => {
   user.id = uuid;
   user.location = {};
   user.appearance = {};
-  user.challenges = {};
+  user.challenger = {};
   // Save new user in database
   database[uuid] = user;
   console.log('New user: ', uuid);
@@ -111,9 +114,14 @@ app.get('/user/:id/challenger', (req, res) => {
     return;
   }
   
+  var found = false;
   var challenger = {};
-  if (user.challenger !== undefined) {
-    challenger = retrieveUser(user.challenger);
+  if (user.challenger.id === undefined) found = findChallenger(user.id);
+  if (found === false) {
+    res.status(404).send("No challenger found for this user\n");
+    return;
+  } else {
+    challenger = retrieveUser(user.challenger.id);
     if (challenger !== undefined) {
       var obj = {};
       obj.location = challenger.location;
@@ -126,11 +134,10 @@ app.get('/user/:id/challenger', (req, res) => {
   res.status(404).send("No challenger found for this user\n");
 });
 
-app.get('/user/:id/find', (req, res) => {
-  var user = retrieveUser(req.params.id);
-  if (user === undefined) {
-    res.status(404).send("User does not exist\n");
-    return;
+function findChallenger(id) {
+  var user = retrieveUser(id);
+  if (user === undefined || user.location.latitude === undefined || user.location.longitude === undefined) {
+    return false;
   }
 
   var u = {};
@@ -150,15 +157,14 @@ app.get('/user/:id/find', (req, res) => {
   }
 
   if (nearest !== undefined) {
-    user.challenger = nearest.id;
+    user.challenger.id = nearest.id;
     database[user.id] = user;
     console.log("Challenger: ", user.challenger.id);
-    res.status(200).send("Challenger found\n");
-    return;
+    return true;
   }
-  
-  res.status(404).send("No challengers nearby\n");
-});
+
+  return false;
+}
 
 function retrieveUser(id) {
   if (database[id] !== undefined) {
@@ -172,6 +178,13 @@ function calculateDistance(latitude, longitude, other_latitude, other_longitude)
   abs_longitude = Math.abs(longitude, other_longitude);
   squared_distance = Math.pow(abs_latitude, 2) + Math.pow(abs_longitude, 2);
   return Math.sqrt(squared_distance);
+}
+
+function setFinishPoint(latitude, longitude, other_latitude, other_longitude) {
+  var finish = {};
+  finish.latitude = 1.45;
+  finish.longitude = 2.43;
+  return finish;
 }
 
 app.listen(port, hostname, () => {

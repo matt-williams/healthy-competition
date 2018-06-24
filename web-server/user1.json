@@ -14,5 +14,11 @@
     "socks" : "blue",
     "shoes" : "blue"
   },
-  "challenger": "40cea990-771e-11e8-b86e-fd46340bc93a"
+  "challenger": {
+    "id": "40cea990-771e-11e8-b86e-fd46340bc93a",
+    "finish": {
+      "latitude": 1.65,
+      "longitude": 2.34
+    }
+  }
 }
