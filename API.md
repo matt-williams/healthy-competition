@@ -78,8 +78,8 @@ Chooses a challenge.  If one is available, returns it, in the following form.  I
   "finish": {
     "latitude": 2.34,
     "longitude": 3.45,
-    "over": false,
-    "result": "winner"
+    "over": true,
+    "result": "win"
   }
 }
 ```
