@@ -13,9 +13,9 @@ app.use(bodyParser.json());
 const database = {};
 
 // Load dummy user 1
-var user1 = fs.readFileSync('./user1.json');
-var jsonUser1 = JSON.parse(user1);
-database[jsonUser1.id] = jsonUser1;
+//var user1 = fs.readFileSync('./user1.json');
+//var jsonUser1 = JSON.parse(user1);
+//database[jsonUser1.id] = jsonUser1;
 
 app.get('/', (req, res) => {
   res.status(200).send("Here Comes A New Challenger\n");
@@ -158,7 +158,9 @@ app.delete('/user/:id/challenger', (req, res) => {
 });
 
 function isFinished(user, challenger) {
+  user.challenger.finish = user.challenger.finish || {};
   var finish = user.challenger.finish;
+  challenger.challenger.finish = challenger.challenger.finish || {};
   var other_finish = challenger.challenger.finish;
   if (user.location.latitide == finish.latitide && user.location.longitude == finish.longitude) {
     finish.over = true;
