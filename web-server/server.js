@@ -126,6 +126,7 @@ app.get('/user/:id/challenger', (req, res) => {
       var obj = {};
       obj.location = challenger.location;
       obj.appearance = challenger.appearance;
+      obj.finish = user.challenger.finish;
       res.status(200).send(obj);
       return;
     }
@@ -158,6 +159,8 @@ function findChallenger(id) {
 
   if (nearest !== undefined) {
     user.challenger.id = nearest.id;
+    var finish = setFinishPoint(user.location.latitude, user.location.longitude, nearest.location.latitude, nearest.location.longitude);
+    user.challenger.finish = finish;
     database[user.id] = user;
     console.log("Challenger: ", user.challenger.id);
     return true;

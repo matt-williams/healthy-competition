@@ -74,6 +74,10 @@ Chooses a challenge.  If one is available, returns it, in the following form.  I
     "shorts": "white",
     "socks": "blue",
     "shoes": "blue"
+  },
+  "finish": {
+    "latitude": 2.34,
+    "longitude": 3.45
   }
 }
 ```
